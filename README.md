@@ -296,7 +296,7 @@ Overlap ensures that sentences split across chunk boundaries are still retrievab
 **Aditya Yadav**
 AI/ML Engineer | Data Analyst
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://linkedin.com/in/aditya-yadav-a757131ba)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/aditya-y-a757131ba/)
 [![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=flat&logo=github)](https://github.com/InsightAdi)
 [![Email](https://img.shields.io/badge/Email-Contact-red?style=flat&logo=gmail)](mailto:adityaydv1203@gmail.com)
 
