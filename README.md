@@ -13,8 +13,6 @@
 
 [🚀 Live Demo](https://rag-app-app.streamlit.app/) · [📂 GitHub Repo](https://github.com/InsightAdi/rag-qa-app) · [🐛 Report Bug](https://github.com/InsightAdi/rag-qa-app/issues)
 
-![DocMind AI Demo](https://github.com/InsightAdi/rag-qa-app/commit/5f6379ec1f3e24ce5e2d19c737710d682711d8ab#diff-da24126c23bc8fcdbcda46082a185987531ffc963dcbbb0f5e0066f018c5f9d4)
-
 </div>
 
 ---
