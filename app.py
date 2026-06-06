@@ -5,14 +5,6 @@ from chain import build_rag_chain
 import tempfile
 import os
 
-# TEMPORARY DEBUG — remove after fixing
-try:
-    groq_key = st.secrets.get("GROQ_API_KEY", None)
-    st.sidebar.write("GROQ KEY FOUND:", bool(groq_key))
-    st.sidebar.write("KEY STARTS WITH:", groq_key[:6] if groq_key else "None")
-except Exception as e:
-    st.sidebar.write("SECRETS ERROR:", str(e))
-    
 # ─── Page Config ────────────────────────────────────────────
 st.set_page_config(
     page_title="DocMind AI",
