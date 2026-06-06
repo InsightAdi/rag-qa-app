@@ -7,16 +7,29 @@ import os
 
 load_dotenv()
 
-# Safely load GROQ_API_KEY — never crashes regardless of environment
-try:
-    import streamlit as st
-    groq_api_key = st.secrets.get("GROQ_API_KEY", None)
-except Exception:
-    groq_api_key = os.getenv("GROQ_API_KEY", None)
+def get_groq_api_key():
+    """Fetch GROQ key at runtime — not at import time"""
+    # Try Streamlit secrets first
+    try:
+        import streamlit as st
+        key = st.secrets.get("GROQ_API_KEY", None)
+        if key:
+            return key
+    except Exception:
+        pass
 
+    # Fall back to .env for local development
+    return os.getenv("GROQ_API_KEY", None)
 
 def get_llm():
-    api_key = groq_api_key or os.getenv("GROQ_API_KEY")
+    api_key = get_groq_api_key()
+
+    if not api_key:
+        raise ValueError(
+            "GROQ_API_KEY not found. "
+            "Add it to Streamlit secrets or your .env file."
+        )
+
     llm = ChatGroq(
         api_key=api_key,
         model_name="llama-3.1-8b-instant",
@@ -25,8 +38,6 @@ def get_llm():
     return llm
 
 def build_rag_chain(retriever):
-    """Build the full RAG pipeline"""
-
     prompt_template = """
     You are a helpful assistant. Answer the question using ONLY the 
     context provided below. If the answer is not in the context, 
@@ -64,14 +75,13 @@ def build_rag_chain(retriever):
     return rag_chain
 
 def ask_question(rag_chain, question: str):
-    """Send a question through the RAG chain"""
     print(f"\nQuestion: {question}")
     print("Thinking...\n")
     answer = rag_chain.invoke(question)
     print(f"Answer: {answer}")
     return answer
 
-# Test it
+# Test it locally
 if __name__ == "__main__":
     from retriever import load_vector_store, get_retriever
 
