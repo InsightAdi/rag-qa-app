@@ -2,17 +2,21 @@ from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
-import streamlit as st
 from dotenv import load_dotenv
 import os
 
-load_dotenv()  # works locally
-# Override with Streamlit Cloud secrets if available
-if "GROQ_API_KEY" in st.secrets:
-    os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
+load_dotenv()
+
+# Safely load GROQ_API_KEY — never crashes regardless of environment
+try:
+    import streamlit as st
+    groq_api_key = st.secrets.get("GROQ_API_KEY", None)
+except Exception:
+    groq_api_key = os.getenv("GROQ_API_KEY", None)
+
 
 def get_llm():
-    api_key = st.secrets.get("GROQ_API_KEY") or os.getenv("GROQ_API_KEY")
+    api_key = groq_api_key or os.getenv("GROQ_API_KEY")
     llm = ChatGroq(
         api_key=api_key,
         model_name="llama-3.1-8b-instant",
