@@ -1,11 +1,21 @@
 from langchain_community.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from dotenv import load_dotenv
+import streamlit as st
 import os
 
-# Load environment variables from .env
 load_dotenv()
-os.environ["HF_TOKEN"] = os.getenv("HF_TOKEN")
+
+# Safely set HF_TOKEN — works both locally and on Streamlit Cloud
+hf_token = None
+if "HF_TOKEN" in st.secrets:
+    hf_token = st.secrets["HF_TOKEN"]
+elif os.getenv("HF_TOKEN"):
+    hf_token = os.getenv("HF_TOKEN")
+
+if hf_token:  # only set if we actually have a value, never set None
+    os.environ["HF_TOKEN"] = hf_token
 
 # Path where FAISS index will be saved
 FAISS_INDEX_PATH = "faiss_index"
